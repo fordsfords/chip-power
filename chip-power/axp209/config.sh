@@ -1,0 +1,1 @@
+BATTERY_TYPE=conrad_energy_208954

@@ -1,0 +1,61 @@
+where parameter is one or more of:
+
+Measurements:
+        --temperature        chip temperature (higher than air) in degree Celsius
+        --ac_voltage         voltage of external power supply (mV)
+        --ac_current         current drained from external power supply (mA)
+        --battery_voltage    voltage of battery (mV)
+        --charge_current     electrical current charged into the battery (mA)
+        --discharge_current  electrical current discharged from the battery (mA)
+
+Status checks:
+        --ac_present           whether external power is supplied (e.g. via USB)
+        --reg_0x00_bit2        probably a discharge bit, but non-functional
+        --battery_charging     whether the battery is currently charging
+        --battery_connected    whether a battery is connected
+
+Data logging:
+        --tsv_measurements  some measurements in tab seperated format (tsv)
+        --measure <interval> <count>
+                            continuous measurements
+
+Event monitoring:
+        --event install|start|stop|list|remove 'Some Event Name'
+                install  creates a directory for the event (required)
+                start    starts a monitoring process for the event
+                stop     stops the monitoring process of the event
+                status   checks for a running monitor process (pid+name)
+                list     lists events by name (running or not)
+                remove   stops the process and removes the directory
+        --events-all start|stop|status|list|remove
+                         does the action for all events
+        --is_equal    checks a status
+                      e.g. --is_equal battery_connected 0
+        --is_lower    checks a measurement
+                      e.g. --is_lower battery_voltage 3500
+
+Charge control:
+        --get_chip_shutdown_voltage
+        --set_chip_shutdown_voltage 2.6|2.7|2.8|2.9|3.0|3.1|3.2|3.3
+
+        --get_battery_target_voltage
+        --set_battery_target_voltage 4.1|4.15|4.2|4.36
+
+        Note: chip shutdown means power disruption @voltage of the battery.
+	If you need an orderly "shutdown -h now", configure an event.
+
+Sysv init compatibility:
+        start|stop|restart
+                      calls --events-all start|stop|restart
+        --apply_profile
+                      execute parameters from a profile file
+
+Script related:
+        --all         all of the above in the given order
+        --interactive accept options interactively
+        --extend_adc  required once for the measurements
+        --version     display the version number
+        --help        display a help text
+        --usage       display this text
+
+Use at your own risk. No warranties.

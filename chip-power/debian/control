@@ -1,0 +1,14 @@
+Source: chip-power
+Section: unknown
+Priority: optional
+Maintainer: Jose Torres <software@nextthing.co>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.5
+Homepage: nextthing.co
+Git: https://github.com/NextThingCo/chip-power
+
+Package: chip-power
+Architecture: all
+Depends: ${misc:Depends}, i2c-tools
+Description: Power management scripts for C.H.I.P.
+ Scripts for interacting with AXP209 power management unit on C.H.I.P.
