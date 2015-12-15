@@ -2,7 +2,7 @@
 #
 # axp209.sh - monitoring AC power and lipo battery state with the AXP209
 #
-# Copyright (C) 2015 Winfried Trümper <pub+axp209@wt.tuxomania.net>
+# Copyright (C) 2015 Winfried TrÃ¼mper <pub+axp209@wt.tuxomania.net>
 #
 # No warranties. Use at your own risk.
 
@@ -59,12 +59,14 @@ do
 		--temperature)
 			axp209_2byte_register_value 0x5E 0x5F 4 oC '%d * 0.1 - 144.7'
 			;;
-		--ac_voltage)
+		--ac-voltage)
 			axp209_2byte_register_value 0x56 0x57 4 mV '%d * 1.7'
 			;;
-		--vbus_power)
+		--vbus-power)
 			axp209_read_address 0x30
 			;;
+		--irq-enable)
+			axp209_read_address
 		--blink)
 			for i in `seq 1 10`;
 			do
@@ -74,50 +76,50 @@ do
 				sleep .5
 			done
 			;;
-		--no_limit)
+		--no-limit)
 			axp209_write_address 0x30 0x03
 			;;
-		--fuel_gauge)
+		--fuel-gauge)
 			axp209_read_address 0xB9
 			;;
-		--shutdown_voltage)
+		--shutdown-voltage)
 			axp209_read_address 0x46
 			;;
-		--read_shutdown)
+		--read-shutdown)
 			axp209_read_address 0x32
 			;;
 		--shutdown)
 			axp209_write_address 0x32 0xC6
 			;;
-		--set_500ma)
+		--set-500ma)
 			axp209_write_address 0x30 0x61
 			;;
-		--no_voltage_drop)
+		--no-voltage-drop)
 			axp209_write_address 0x30 0x35
 			;;
-		--ac_current)
+		--ac-current)
 			axp209_2byte_register_value 0x58 0x59 4 mA '%d * 0.625'
 			;;
-		--battery_voltage)
+		--battery-voltage)
 			axp209_2byte_register_value 0x78 0x79 4 mV '%d * 1.1'
 			;;
-		--charge_current)
+		--charge-current)
 			axp209_2byte_register_value 0x7A 0x7B 4 mA '%d * 0.5'
 			;;
-		--discharge_current)
+		--discharge-current)
 			axp209_2byte_register_value 0x7C 0x7D 5 mA '%d * 0.5'
 			;;
 
-		--ac_present)
+		--ac-present)
 			axp209_bit_register_value 0x00 7
 			;;
-		--reg_0x00_bit2)
+		--reg-0x00-bit2)
 			axp209_bit_register_value 0x00 2
 			;;
-		--battery_charging)
+		--battery-charging)
 			axp209_bit_register_value 0x01 6
 			;;
-		--battery_connected)
+		--battery-connected)
 			axp209_bit_register_value 0x01 5
 			;;
 
@@ -172,14 +174,3 @@ do
 	esac
 done
 exit $RC_EXIT
-
-# History:
-# 2015-02-23 1.0 Initial public version
-# 2015-02-24 1.1 trigger_command.sh was replaced with edge_trigger.sh (incompatible)
-#                added --g/set_battery_target_voltage
-#                added --capacity_guess
-#                added --boot
-# 2015-02-25 1.2 removed --boot
-#                added --apply_profile
-#                added plugin system
-#                added --capacity_guess
