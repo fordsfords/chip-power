@@ -137,7 +137,7 @@ do
 			echo "No warranties. Use at your own risk"
 			echo "For usage see $0 --usage"
 
-			if ! hash -t i2cget
+			if [ ! -e /usr/sbin/i2cget ]
 			then
 				echo "Error: it seems you need to run 'apt-get install i2c-tools'"
 				exit 2
