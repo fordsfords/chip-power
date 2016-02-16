@@ -7,23 +7,23 @@ terminate_writer() {
 trap terminate_writer SIGTERM
 
 case $1 in
-        --dynamic_loop_vars)
+        --dynamic-loop-vars)
 		BASE_DIR="${0%.sh}"
-		if test "$BASE_DIR/event_monitor.cfg" -nt "$BASE_DIR/dynamic_loop_vars.sh"
+		if test "$BASE_DIR/event-monitor.cfg" -nt "$BASE_DIR/dynamic-loop-vars.sh"
 		then
-			cat "$BASE_DIR/event_monitor.cfg" \
-			| $AXP209_ETC/event_monitor/compile_dynamic_loop_vars.sh "$2" \
-			> "$BASE_DIR/dynamic_loop_vars.sh" \
+			cat "$BASE_DIR/event-monitor.cfg" \
+			| $AXP209_ETC/event-monitor/compile-dynamic-loop-vars.sh "$2" \
+			> "$BASE_DIR/dynamic-loop-vars.sh" \
 			|| exit $?
 		fi
-		echo "$BASE_DIR/dynamic_loop_vars.sh"
+		echo "$BASE_DIR/dynamic-loop-vars.sh"
                 ;;
-        --process_edges)
+        --process-edges)
 		read WRITER_PID
 
                 while read EDGE_TYPE EDGE_VALUE MAIN_SCRIPT
                 do
-                	process_edge "$EDGE_TYPE" "$EDGE_VALUE" "$MAIN_SCRIPT"
+                	process-edge "$EDGE_TYPE" "$EDGE_VALUE" "$MAIN_SCRIPT"
                 done
                 ;;
         *)

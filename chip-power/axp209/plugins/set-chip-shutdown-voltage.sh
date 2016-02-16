@@ -14,4 +14,4 @@ case $VOLTAGE in
 		exit 2
 		;;
 esac
-axp209_write_address 0x31 0x0$VALUE
+axp209-write-address 0x31 0x0$VALUE

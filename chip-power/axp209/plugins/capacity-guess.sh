@@ -1,12 +1,12 @@
-if test `$0 --battery_connected` -eq 0
+if test `$0 --battery-connected` -eq 0
 then
 	echo "n/a"
 	exit 2
 fi
 
-VOLTAGE_NOW=`$0 --battery_voltage | sed -e 's,[\. ].*,,'`
+VOLTAGE_NOW=`$0 --battery-voltage | sed -e 's,[\. ].*,,'`
 
-IS_DISCHARGING=`$0 --discharge_current | sed -e 's,[\. ].*,,'`
+IS_DISCHARGING=`$0 --discharge-current | sed -e 's,[\. ].*,,'`
 if test "$IS_DISCHARGING" -gt 0
 then
 	CAPACITY_TYPE="discharge"
@@ -15,8 +15,8 @@ else
 fi
 
 for CAPACITY_CURVE in \
-	"$AXP209_HOME/capacity_curves/$BATTERY_TYPE-$CAPACITY_TYPE.txt" \
-	"$AXP209_ETC/capacity_curves/$BATTERY_TYPE-$CAPACITY_TYPE.txt"
+	"$AXP209_HOME/capacity-curves/$BATTERY_TYPE-$CAPACITY_TYPE.txt" \
+	"$AXP209_ETC/capacity-curves/$BATTERY_TYPE-$CAPACITY_TYPE.txt"
 do
 	test -f $CAPACITY_CURVE \
 	&& break

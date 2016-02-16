@@ -9,5 +9,5 @@ case $VOLTAGE in
 		echo "Error: Voltage '$VOLTAGE' out of range. See --usage."
 		exit 2
 esac
-OSB_REGISTER=$(( (`axp209_read_address 0x33` & 159) | $VALUE ))
-axp209_write_address 0x33 `printf '0x%X' $OSB_REGISTER`
+OSB_REGISTER=$(( (`axp209-read-address 0x33` & 159) | $VALUE ))
+axp209-write-address 0x33 `printf '0x%X' $OSB_REGISTER`

@@ -15,13 +15,13 @@ case $ACTION in
 			touch "$AXP209_HOME/$NAME.sh"
 			chmod 750 "$AXP209_HOME/$NAME.sh"
 			echo "Created empty script $AXP209_HOME/$NAME.sh"
-			echo "See /etx/axp209/events for examples."
+			echo "See /etc/axp209/events for examples."
 		fi
 		;;
 
 	list)
 		echo "$NAME"
-		"$AXP209_HOME/$NAME.sh" --print_edges
+		"$AXP209_HOME/$NAME.sh" --print-edges
 		;;
 
 	remove)
@@ -47,7 +47,7 @@ case $ACTION in
 		;;
 
 	status)
-		PID_FILE="$AXP209_HOME/$NAME/event_monitor.pid"
+		PID_FILE="$AXP209_HOME/$NAME/event-monitor.pid"
 		PID='-'
 		if test -f  "$PID_FILE"
 		then
@@ -61,7 +61,7 @@ case $ACTION in
 		;;
 
 	start)
-		PID_FILE="$AXP209_HOME/$NAME/event_monitor.pid"
+		PID_FILE="$AXP209_HOME/$NAME/event-monitor.pid"
 		if test -f  "$PID_FILE"
 		then
 			read PID < "$PID_FILE"
@@ -75,12 +75,12 @@ case $ACTION in
 		fi
 
 		MONITOR_SH="$AXP209_HOME/$NAME.sh"
-		COMMAND_SH="$AXP209_HOME/$NAME/trigger_command.sh"
+		COMMAND_SH="$AXP209_HOME/$NAME/trigger-command.sh"
 		if test -f "$COMMAND_SH"
 		then
 			echo "Error: the trigger file '$COMMAND_SH' is no longer supported."
 			echo "The new file name is $MONITOR_SH"
-			echo "Calling parameters are: edge_type, trigger value, event name, calling script."
+			echo "Calling parameters are: edge-type, trigger value, event name, calling script."
 			exit 2
 		fi
 		if ! test -s "$MONITOR_SH"
@@ -105,9 +105,9 @@ case $ACTION in
 
 			echo "$( date ) Entering event loop '$NAME'"
 
-			"$AXP209_ETC/event_monitor/edge_detection.sh" \
-				$( "$MONITOR_SH" --dynamic_loop_vars "$0" ) \
-			| "$MONITOR_SH" --process_edges &
+			"$AXP209_ETC/event-monitor/edge-detection.sh" \
+				$( "$MONITOR_SH" --dynamic-loop-vars "$0" ) \
+			| "$MONITOR_SH" --process-edges &
 
 			SUBCHILD_PID=$!
 			wait
@@ -123,7 +123,7 @@ case $ACTION in
 		;;
 
 	stop)
-		PID_FILE="$AXP209_HOME/$NAME/event_monitor.pid"
+		PID_FILE="$AXP209_HOME/$NAME/event-monitor.pid"
 		if test -f  "$PID_FILE"
 		then
 			read PID < "$PID_FILE"
