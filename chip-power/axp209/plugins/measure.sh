@@ -4,7 +4,7 @@ shift 2
 ITERATOR=0
 while test $ITERATOR -lt $COUNT
 do
-	$0 --tsv_measurements
+	$0 --tsv-measurements
 	sleep $INTERVAL
 	ITERATOR=$(( ITERATOR + 1 ))
 done
