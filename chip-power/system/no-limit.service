@@ -1,5 +1,8 @@
 [Unit]
 ConditionFileIsExecutable=/usr/sbin/enable-no-limit
+DefaultDependencies=no
+After=sysinit.target local-fs.target
+Before=base.target
 
 [Service]
 Type=oneshot
@@ -9,4 +12,4 @@ StandardOutput=tty
 RemainAfterExit=yes
 
 [Install]
-WantedBy=basic.target
+WantedBy=base.target
