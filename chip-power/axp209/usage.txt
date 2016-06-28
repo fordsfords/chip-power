@@ -2,17 +2,17 @@ where parameter is one or more of:
 
 Measurements:
         --temperature        chip temperature (higher than air) in degree Celsius
-        --ac_voltage         voltage of external power supply (mV)
-        --ac_current         current drained from external power supply (mA)
-        --battery_voltage    voltage of battery (mV)
-        --charge_current     electrical current charged into the battery (mA)
-        --discharge_current  electrical current discharged from the battery (mA)
+        --ac-voltage         voltage of external power supply (mV)
+        --ac-current         current drained from external power supply (mA)
+        --battery-voltage    voltage of battery (mV)
+        --charge-current     electrical current charged into the battery (mA)
+        --discharge-current  electrical current discharged from the battery (mA)
 
 Status checks:
-        --ac_present           whether external power is supplied (e.g. via USB)
-        --reg_0x00_bit2        probably a discharge bit, but non-functional
-        --battery_charging     whether the battery is currently charging
-        --battery_connected    whether a battery is connected
+        --ac-present           whether external power is supplied (e.g. via USB)
+        --reg-0x00-bit2        probably a discharge bit, but non-functional
+        --battery-charging     whether the battery is currently charging
+        --battery-connected    whether a battery is connected
 
 Data logging:
         --tsv_measurements  some measurements in tab seperated format (tsv)
@@ -20,7 +20,7 @@ Data logging:
                             continuous measurements
 
 Event monitoring:
-        --event install|start|stop|list|remove 'Some Event Name'
+        --event_monitor install|start|stop|list|remove 'Some Event Name'
                 install  creates a directory for the event (required)
                 start    starts a monitoring process for the event
                 stop     stops the monitoring process of the event
