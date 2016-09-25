@@ -5,6 +5,8 @@ chip-power (0.6) unstable; urgency=low
   * axp209: enhance to print help when axp209 entered with no parameters.
   * axp209: fixed/enhanced heading comments.
   * axp209: updated "--version" to 1.2.1.
+  * usage.txt: added missing commands
+  * plugins/capacity_guess.sh: fixed underscores to dashes in command.
 
  -- Steve Ford <sford@geeky-boy.com>  Sun, 25 Sep 2016 08:43:38 -0500
 

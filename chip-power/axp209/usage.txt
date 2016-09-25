@@ -7,12 +7,31 @@ Measurements:
         --battery-voltage    voltage of battery (mV)
         --charge-current     electrical current charged into the battery (mA)
         --discharge-current  electrical current discharged from the battery (mA)
+        --fuel-gauge         display reg B9H, percent battery charge (0-100)
+        --capacity_guess     alternate calc for percent battery charge (0-100)
 
 Status checks:
-        --ac-present           whether external power is supplied (e.g. via USB)
-        --reg-0x00-bit2        probably a discharge bit, but non-functional
-        --battery-charging     whether the battery is currently charging
-        --battery-connected    whether a battery is connected
+        --ac-present         whether external power is supplied (e.g. via USB)
+        --reg-0x00-bit2      probably a discharge bit, but non-functional
+        --battery-charging   whether the battery is currently charging
+        --battery-connected  whether a battery is connected
+        --vbus-power         display reg 30H (VBUS-IPSOUT Power Path Mgt)
+        --irq-enable         display reg 42H (IRQ Enable Register 3)
+        --shutdown-voltage   display reg 46H (record of voltage that led to
+                             shutdown; very little explanation in datasheet)
+        --read-shutdown      display reg 32H (Shutdown settings, battery
+                             detection, and CHGLED Pin control)
+
+System Control:
+        --blink              blink status LED on/off for 10 sec (leaves off)
+        --no-limit           sets "VBUS current-limit" to "no limit" allowing
+                             unlimited current draw from VBUS (reg 30H)
+        --shutdown           force hard (not graceful) power shutdown (not
+                             recommended; use "shutdown -h now")
+        --set-500ma          sets "VBUS current-limit" to 500, which limits
+                             the current it will draw from VBUS to 500 mA.
+        --no-voltage-drop    sets "VBUS" voltage drop limit to "no limit"
+                             (not recommended).
 
 Data logging:
         --tsv_measurements  some measurements in tab seperated format (tsv)
@@ -53,8 +72,11 @@ Sysv init compatibility:
 Script related:
         --all         all of the above in the given order
         --interactive accept options interactively
-        --extend_adc  required once for the measurements
+        --extend_adc  enable measurement of battery current, ACIN voltage,
+                      ACIN current (required once for those measurements)
+        --factory_default_adc  disable extended adc measurements
         --version     display the version number
+        --verbose     display each command as it is executed
         --help        display a help text
         --usage       display this text
 
