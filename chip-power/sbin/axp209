@@ -1,8 +1,12 @@
 #!/bin/bash
 #
-# axp209.sh - monitoring AC power and lipo battery state with the AXP209
+# axp209 - monitoring AC power and lipo battery state with the AXP209
 #
 # Copyright (C) 2015 Winfried Trümper <pub+axp209@wt.tuxomania.net>
+#
+# C.H.I.P. version cloned with permission from http://wt.tuxomania.net/#axp209
+# (see downloads section, V1.2).  Addressed some bugs and minor enhancements.
+# C.H.I.P. master at https://github.com/NextThingCo/chip-power
 #
 # No warranties. Use at your own risk.
 
@@ -25,11 +29,15 @@ axp209_write_address() {
 	i2cset -f -y 0 0x34 $@
 }
 
+# Read a 2-byte value and format for printing.
+# parameters: MSB_reg LSB_reg num_LSB_bits units_str normalize_calc
+#   where normalize_calc is a "bc"-friendly expression that includes %d
+#   in the place where the 2-byte value should be inserted.
 axp209_2byte_register_value() {
 	MSB_REGISTER=$(( `axp209_read_address $1` ))
 	LSB_REGISTER=$(( `axp209_read_address $2` ))
-	LBIT_MASK=$(( 1 << $3 ))
-	VALUE=$(( ($MSB_REGISTER * $LBIT_MASK) | (($LSB_REGISTER & 240) / $LBIT_MASK) ))
+	LSB_MASK=$(( ( 1 << $3 ) - 1 ))
+	VALUE=$(( ($MSB_REGISTER << $3) | ($LSB_REGISTER & $LSB_MASK) ))
 	RESULT=`printf "$5\n" "$VALUE" | bc -lq`
 	echo "$RESULT $4"
 }
@@ -46,6 +54,10 @@ axp209_events_base() {
 	|| exit 2
 }
 
+if [ $# -eq 0 ]
+then
+  set -- "--help"
+fi
 
 VERBOSE=0
 RC_EXIT=0
@@ -129,7 +141,7 @@ do
 			;;
 
 		--version)
-			VERSION="1.2"
+			VERSION="1.2.1"
 			echo "$VERSION"
 			;;
 		--help)
@@ -137,7 +149,7 @@ do
 			echo "No warranties. Use at your own risk"
 			echo "For usage see $0 --usage"
 
-			if ! hash -t i2cget
+			if ! which i2cget >/dev/null
 			then
 				echo "Error: it seems you need to run 'apt-get install i2c-tools'"
 				exit 2
